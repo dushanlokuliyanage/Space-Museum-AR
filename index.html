@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Space Museum AR</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:,">
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js"></script>
+    <script src="js/main.js"></script>
+
+</head>
+
+<body>
+
+    <div id="status-banner" class="status-banner searching" role="status" aria-live="polite">
+        Starting camera…
+    </div>
+
+    <div class="help-text">
+        Point your camera at the Hiro marker.
+        Tap the blue ball or astronaut.
+    </div>
+
+    <a-scene
+        embedded
+        loading-screen="enabled: false"
+        vr-mode-ui="enabled: false"
+        renderer="colorManagement: true; alpha: true; antialias: true"
+        arjs="sourceType: webcam; debugUIEnabled: false;">
+
+        <a-assets>
+            <a-asset-item
+                id="astronaut-model"
+                src="https://modelviewer.dev/shared-assets/models/Astronaut.glb">
+            </a-asset-item>
+        </a-assets>
+        <a-marker id="hiro-marker" preset="hiro">
+
+            <a-cylinder position="0 0.04 0"  radius="1.15"   height="0.08"   color="#243B64"> </a-cylinder>
+
+            <a-sphere position="-0.58 0.62 -0.25" radius="0.22" color="#FFC928" animation="property: position; to: -0.58 0.82 -0.25;
+                dir: alternate;
+                loop: true;
+                dur: 1800">
+            </a-sphere>
+
+           
+            <a-sphere
+                position="0.55 0.48 -0.25"
+                radius="0.19"
+                color="#168BDB"
+                animation="property: rotation;
+                to: 0 360 0;
+                loop: true;
+                dur: 4500">
+            </a-sphere>
+
+  
+            <a-sphere
+                id="colour-ball"
+                class="clickable"
+                position="-0.58 0.27 0.55"
+                radius="0.16"
+                color="#2D9CDB"
+                ball-colour-change>
+            </a-sphere>
+
+  
+            <a-box
+                position="0.57 0.20 0.55"
+                width="0.35"
+                height="0.32"
+                depth="0.35"
+                color="#9B59B6">
+            </a-box>
+
+
+            <a-entity
+                id="astronaut"
+                class="clickable"
+                gltf-model="#astronaut-model"
+                position="0 0.12 -0.78"
+                rotation="0 180 0"
+                scale="0.28 0.28 0.28"
+                grow-on-click
+                model-status>
+            </a-entity>
+
+          
+            <a-text
+                value="WELCOME TO SPACE MUSEUM"
+                position="0 1.22 0.25"
+                rotation="-90 0 0"
+                align="center"
+                color="#FFFFFF"
+                width="3.2">
+            </a-text>
+
+            <a-text
+                value="Tap the blue ball or astronaut"
+                position="0 0.95 0.25"
+                rotation="-90 0 0"
+                align="center"
+                color="#D8ECFF"
+                width="2.7">
+            </a-text>
+
+        </a-marker>
+
+
+        <a-entity camera>
+            <a-cursor
+                raycaster="objects: .clickable"
+                fuse="false"
+                material="color: white; shader: flat"
+                geometry="primitive: ring;
+                radiusInner: 0.008;
+                radiusOuter: 0.012">
+            </a-cursor>
+        </a-entity>
+
+    </a-scene>
+
+</body>
+</html>
